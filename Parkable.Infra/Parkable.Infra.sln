@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkable.Infra", "Parkable.Infra\Parkable.Infra.csproj", "{F4A2D38F-0E77-4E59-A51F-8602FB9D1404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkable.Shared", "Parkable.Shared\Parkable.Shared.csproj", "{FBAF40A4-7D95-4D21-B9C3-E701757C7040}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4A2D38F-0E77-4E59-A51F-8602FB9D1404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4A2D38F-0E77-4E59-A51F-8602FB9D1404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4A2D38F-0E77-4E59-A51F-8602FB9D1404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4A2D38F-0E77-4E59-A51F-8602FB9D1404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBAF40A4-7D95-4D21-B9C3-E701757C7040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAF40A4-7D95-4D21-B9C3-E701757C7040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAF40A4-7D95-4D21-B9C3-E701757C7040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAF40A4-7D95-4D21-B9C3-E701757C7040}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51163BC9-53D4-4D73-A4D9-6673B63C8C86}
+	EndGlobalSection
+EndGlobal
