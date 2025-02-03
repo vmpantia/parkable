@@ -29,12 +29,6 @@ namespace Parkable.Infra.Databases.Repositories
             return result;
         }
 
-        public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            var result = await _table.FindAsync(id, cancellationToken);
-            return result;
-        }
-
         public async Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             await _table.AddAsync(entity, cancellationToken);

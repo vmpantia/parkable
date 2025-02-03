@@ -1,0 +1,6 @@
+@Parkable.Api_HostAddress = http://localhost:5141
+
+GET {{Parkable.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

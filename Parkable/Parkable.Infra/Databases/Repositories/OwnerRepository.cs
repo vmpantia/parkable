@@ -18,5 +18,15 @@ namespace Parkable.Infra.Databases.Repositories
 
             return result;
         }
+
+        public async Task<Owner?> GetOwnerByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await GetByExpression(own => own.Id == id)
+                .Include(tbl => tbl.Cars)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return result;
+        }
     }
 }

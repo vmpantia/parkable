@@ -7,7 +7,6 @@ namespace Parkable.Infra.Databases.Contracts.Repositories
     {
         IQueryable<TEntity> GetAll();
         IQueryable<TEntity> GetByExpression(Expression<Func<TEntity, bool>> expression);
-        Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
         Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
         Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
