@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parkable.Infra.Databases.Contexts;
 
@@ -11,9 +12,11 @@ using Parkable.Infra.Databases.Contexts;
 namespace Parkable.Infra.Migrations
 {
     [DbContext(typeof(ParkableDbContext))]
-    partial class ParkableDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250204083607_AddUsersTable")]
+    partial class AddUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

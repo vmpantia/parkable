@@ -3,11 +3,9 @@
 namespace Parkable.Shared.Enums
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum ErrorType
+    public enum UserType
     {
-        Invalid,
-        NotFound,
-        Exception,
-        Validation
+        Admin,
+        Owner
     }
 }

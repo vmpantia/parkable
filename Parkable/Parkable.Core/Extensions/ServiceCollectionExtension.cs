@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Parkable.Core.Users;
 using System.Reflection;
 
 namespace Parkable.Core.Extensions
@@ -10,6 +10,7 @@ namespace Parkable.Core.Extensions
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddSingleton<TokenProvider>();
         }
     }
 }

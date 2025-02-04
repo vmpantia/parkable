@@ -14,6 +14,7 @@ namespace Parkable.Infra.Extensions
         {
             services.AddDbContexts(configuration);
             services.AddRepositories();
+            services.AddInterceptors();
         }
 
         private static void AddInterceptors(this IServiceCollection services)
@@ -36,6 +37,7 @@ namespace Parkable.Infra.Extensions
         {
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

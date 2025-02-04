@@ -9,6 +9,7 @@ namespace Parkable.Infra.Databases.Contexts
 
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +32,8 @@ namespace Parkable.Infra.Databases.Contexts
                 .HasForeignKey(c => c.OwnerId)
                 .IsRequired(true);
             });
+
+            modelBuilder.Entity<User>(entity => entity.HasKey(c => c.Id));
         }
     }
 }
