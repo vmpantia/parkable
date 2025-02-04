@@ -23,8 +23,10 @@ namespace Parkable.Core.Users
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity([
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.EmailAddress),
+                    new Claim(ClaimTypes.Role, user.Type.ToString()),
                 ]),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtSetting.ExpirationInMinutes),
                 SigningCredentials = credentials,

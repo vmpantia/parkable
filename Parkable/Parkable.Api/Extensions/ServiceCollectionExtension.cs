@@ -8,23 +8,6 @@ namespace Parkable.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
-        {
-            var jwtSetting = JwtSetting.FromConfiguration(configuration);
-            services.AddSingleton(jwtSetting);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt =>
-                {
-                    opt.RequireHttpsMetadata = true;
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.Secret)),
-                        ValidIssuer = jwtSetting.Issuer,
-                        ValidAudience = jwtSetting.Audience,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
-        }
 
         public static void AddSwaggerGenWithAuth(this IServiceCollection services)
         {
@@ -61,6 +44,24 @@ namespace Parkable.Api.Extensions
 
                 opt.AddSecurityRequirement(securityRequirement);
             });
+        }
+
+        public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSetting = JwtSetting.FromConfiguration(configuration);
+            services.AddSingleton(jwtSetting);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.RequireHttpsMetadata = true;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.Secret)),
+                        ValidIssuer = jwtSetting.Issuer,
+                        ValidAudience = jwtSetting.Audience,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
         }
     }
 }

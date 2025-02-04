@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Parkable.Core.Owners.Queries;
+using Parkable.Shared.Enums;
 
 namespace Parkable.Api.Controllers
 {
@@ -11,10 +12,10 @@ namespace Parkable.Api.Controllers
     {
         public OwnerController(IMediator mediator) : base(mediator) { }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = nameof(UserType.Admin))]
         public async Task<IActionResult> GetOwnersAsync() => await SendRequestAsync(new GetOwnersQuery());
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}"), Authorize(Roles = nameof(UserType.Admin))]
         public async Task<IActionResult> GetOwnersAsync(Guid id) => await SendRequestAsync(new GetOwnerByIdQuery(id));
     }
 }
