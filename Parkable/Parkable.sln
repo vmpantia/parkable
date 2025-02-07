@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parkable.Infra", "Parkable.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parkable.Shared", "Parkable.Shared\Parkable.Shared.csproj", "{6F744646-EDAD-4631-9567-C26A0B3C6C2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkable.Core", "Parkable.Core\Parkable.Core.csproj", "{351F7344-22B9-4E19-9B96-59B57367E405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parkable.Core", "Parkable.Core\Parkable.Core.csproj", "{351F7344-22B9-4E19-9B96-59B57367E405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkable.Api", "Parkable.Api\Parkable.Api.csproj", "{660BC2AF-8CBF-4E72-AD25-26BC5F0CF2F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parkable.Api", "Parkable.Api\Parkable.Api.csproj", "{660BC2AF-8CBF-4E72-AD25-26BC5F0CF2F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkable.Web", "Parkable.Web\Parkable.Web.csproj", "{34803BCB-F994-4597-AC77-41F7D94C8970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{660BC2AF-8CBF-4E72-AD25-26BC5F0CF2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{660BC2AF-8CBF-4E72-AD25-26BC5F0CF2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{660BC2AF-8CBF-4E72-AD25-26BC5F0CF2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34803BCB-F994-4597-AC77-41F7D94C8970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34803BCB-F994-4597-AC77-41F7D94C8970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34803BCB-F994-4597-AC77-41F7D94C8970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34803BCB-F994-4597-AC77-41F7D94C8970}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
