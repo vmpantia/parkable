@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Parkable.Core.Users.Inferfaces;
 using Parkable.Infra.Databases.Entities;
 using Parkable.Shared.Settings;
 using System.Security.Claims;
@@ -7,11 +8,11 @@ using System.Text;
 
 namespace Parkable.Core.Users
 {
-    public sealed class TokenProvider
+    public sealed class TokenProvider : ITokenProvider
     {
         private readonly JwtSetting _jwtSetting;
 
-        public TokenProvider(JwtSetting jwtSetting) => 
+        public TokenProvider(JwtSetting jwtSetting) =>
             _jwtSetting = jwtSetting;
 
         public string Create(User user)

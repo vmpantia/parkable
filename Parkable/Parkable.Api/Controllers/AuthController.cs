@@ -8,9 +8,9 @@ namespace Parkable.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseController
+    public class AuthController : BaseController
     {
-        public UserController(IMediator mediator) : base(mediator) { }
+        public AuthController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("Login")]
         public async Task<IActionResult> LoginUserAsync([FromBody] LoginDto dto) => await SendRequestAsync(new LoginCommand(dto));
