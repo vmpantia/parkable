@@ -10,11 +10,11 @@
             <AuthorizeView>
                 <Authorized>
                     <p class="my-3 me-3">Hello, @context.User.Identity?.Name!</p>
-                    <button class="btn btn-primary">Logout</button>
+                    <a class="btn btn-primary" href="logout">Logout</a>
                 </Authorized>
                 <NotAuthorized>
-                    <a class="btn btn-primary" href="Login">Login</a>
-                    <a class="btn btn-outline-primary" href="Register">Register</a>
+                    <a class="btn btn-primary" href="login">Login</a>
+                    <a class="btn btn-outline-primary" href="register">Register</a>
                 </NotAuthorized>
             </AuthorizeView>
         </div>

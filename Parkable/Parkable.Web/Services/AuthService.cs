@@ -15,8 +15,8 @@ namespace Parkable.Web.Services
 
         public async Task<string> LoginAsync(LoginDto login)
         {
-            var accessToken = await _httpClientProvider.PostAsync<string>("https://localhost:7103/api/Auth/Login", login);
-            return accessToken;
+            var token = await _httpClientProvider.PostAsync<string>("https://localhost:7103/api/Auth/Login", login);
+            return token;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
-using Parkable.Web.Providers.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -8,6 +7,7 @@ namespace Parkable.Web.Providers
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {
+        private const string AuthTokenKey = "authToken";
         private readonly ILocalStorageService _localStorageService;
 
         public CustomAuthenticationStateProvider(ILocalStorageService localStorage)
@@ -17,7 +17,7 @@ namespace Parkable.Web.Providers
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await _localStorageService.GetItemAsync<string>("authToken");
+            var token = await _localStorageService.GetItemAsync<string>(AuthTokenKey);
             var identity = string.IsNullOrEmpty(token) ? new ClaimsIdentity() : GetClaimsIdentity(token);
             var user = new ClaimsPrincipal(identity);   
             return new AuthenticationState(user);
@@ -25,8 +25,16 @@ namespace Parkable.Web.Providers
 
         public async Task MarkUserAsAuthenticated(string token)
         {
-            await _localStorageService.SetItemAsync("authToken", token);
+            await _localStorageService.SetItemAsync(AuthTokenKey, token);
             var identity = GetClaimsIdentity(token);
+            var user = new ClaimsPrincipal(identity);
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+        }
+
+        public async Task MarkUserAsLoggedOut()
+        {
+            await _localStorageService.RemoveItemAsync(AuthTokenKey);
+            var identity = new ClaimsIdentity();
             var user = new ClaimsPrincipal(identity);
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
