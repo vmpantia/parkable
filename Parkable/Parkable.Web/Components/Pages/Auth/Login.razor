@@ -6,7 +6,7 @@
 @using Parkable.Web.Services.Interfaces
 @layout EmptyLayout
 @inject IAuthService AuthService
-@inject AuthenticationStateProvider AuthStateProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
 
 <EditForm Model="login" FormName="Login" OnValidSubmit="HandleLoginAsync">
@@ -30,11 +30,16 @@
     {
         try
         {
+            // Send login request to API
             var token = await AuthService.LoginAsync(login);
 
+            // Check if the token is NOT NULL or Empty
             if (!string.IsNullOrEmpty(token))
             {
-                await ((CustomAuthenticationStateProvider)AuthStateProvider).MarkUserAsAuthenticated(token);
+                // Mark user as authenticate using the custom authentication state provider
+                await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(token);
+
+                // Redirect user to main page
                 Navigation.NavigateTo("/");
             }
         }
