@@ -8,9 +8,9 @@ namespace Parkable.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OwnerController : BaseController
+    public class OwnersController : BaseController
     {
-        public OwnerController(IMediator mediator) : base(mediator) { }
+        public OwnersController(IMediator mediator) : base(mediator) { }
 
         [HttpGet, Authorize(Roles = nameof(UserType.Admin))]
         public async Task<IActionResult> GetOwnersAsync() => await SendRequestAsync(new GetOwnersQuery());

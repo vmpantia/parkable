@@ -2,8 +2,8 @@
 
 namespace Parkable.Web.Services.Interfaces
 {
-    public interface IAuthService
+    public interface IOwnerService
     {
-        Task<string> LoginAsync(LoginDto login);
+        Task<IEnumerable<OwnerDto>> GetOwnersAsync();
     }
 }

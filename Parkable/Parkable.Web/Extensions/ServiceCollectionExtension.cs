@@ -16,7 +16,8 @@ namespace Parkable.Web.Extensions
 
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IOwnerService, OwnerService>();
         }
     }
 }

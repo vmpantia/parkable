@@ -4,19 +4,19 @@ using Parkable.Web.Services.Interfaces;
 
 namespace Parkable.Web.Services
 {
-    public class AuthService : IAuthService
+    public class OwnerService : IOwnerService
     {
         private readonly IHttpClientProvider _httpClientProvider;
 
-        public AuthService(IHttpClientProvider httpClientProvider)
+        public OwnerService(IHttpClientProvider httpClientProvider)
         {
             _httpClientProvider = httpClientProvider;
         }
 
-        public async Task<string> LoginAsync(LoginDto login)
+        public async Task<IEnumerable<OwnerDto>> GetOwnersAsync()
         {
-            var token = await _httpClientProvider.PostAsync<string>("https://localhost:7103/api/Auth/Login", login);
-            return token;
+            var cars = await _httpClientProvider.GetAsync<IEnumerable<OwnerDto>>("https://localhost:7103/api/Owners");
+            return cars;
         }
     }
 }

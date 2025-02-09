@@ -1,0 +1,41 @@
+﻿@page "/owners"
+@using Parkable.Shared.Models
+@using Parkable.Web.Services.Interfaces
+@inject IOwnerService CarService
+@inject ISnackbar Snackbar
+
+<MudDataGrid Items="_owners"
+                Loading="_isLoading">
+    <Columns>
+        <PropertyColumn Property="o => o.Name" Title="Name" />
+        <PropertyColumn Property="o => o.EmailAddress" Title="Email Address" />
+        <PropertyColumn Property="o => o.PhoneNumber" Title="Phone Number" />
+        <PropertyColumn Property="o => o.Address" Title="Address" />
+        <PropertyColumn Property="o => o.Status" Title="Status" />
+        <PropertyColumn Property="o => o.LastUpdateAt" Title="Last Update At" />
+        <PropertyColumn Property="o => o.LastUpdateBy" Title="Last Update By" />
+    </Columns>
+</MudDataGrid>
+
+@code {
+    private IEnumerable<OwnerDto> _owners = new List<OwnerDto>();
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _isLoading = true;
+
+            _owners = await CarService.GetOwnersAsync();
+        }
+        catch(Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}
