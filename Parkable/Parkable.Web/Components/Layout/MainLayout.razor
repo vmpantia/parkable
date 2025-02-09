@@ -1,34 +1,45 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@attribute [Authorize]
 
-<div class="page">
-    <div class="sidebar">
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <AuthorizeView>
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" 
+                            Color="Color.Inherit" 
+                            Edge="Edge.Start" 
+                            OnClick="@((e) => DrawerToggle())" />
+            Parkable
+            <MudSpacer />
+            @context.User.Identity?.Name
+            <MudMenu Icon="@Icons.Material.Filled.Person" 
+                        Color="Color.Inherit">
+                <MudMenuItem Icon="@Icons.Material.Filled.Logout" 
+                                Label="Logout" 
+                                Href="/logout" />
+            </MudMenu>
+        </AuthorizeView>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <AuthorizeView>
-                <Authorized>
-                    <p class="my-3 me-3">Hello, @context.User.Identity?.Name!</p>
-                    <a class="btn btn-primary" href="logout">Logout</a>
-                </Authorized>
-                <NotAuthorized>
-                    <a class="btn btn-primary" href="login">Login</a>
-                    <a class="btn btn-outline-primary" href="register">Register</a>
-                </NotAuthorized>
-            </AuthorizeView>
-        </div>
-
-        <article class="content px-4">
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer Class="mt-6">
             @Body
-        </article>
-    </main>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
 @code {
-    [CascadingParameter] 
+    [CascadingParameter]
     public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    bool _drawerOpen = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -39,4 +50,6 @@
         if ((state.User.Identity?.IsAuthenticated ?? false) == false)
             NavigationManager.NavigateTo("/login");
     }
+
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
 }
