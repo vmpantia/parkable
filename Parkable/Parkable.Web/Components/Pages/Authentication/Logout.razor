@@ -1,15 +1,8 @@
 ﻿@page "/logout"
 @using Parkable.Web.Providers
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
+@using Parkable.Web.Services.Interfaces
+@inject IAuthenticationService AuthenticationService
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        // Mark user as logged out using the custom authentication state provider
-        await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
-        
-        // Redirect user to login page
-        Navigation.NavigateTo("/login");
-    }
+    protected override async Task OnInitializedAsync() => await AuthenticationService.LogoutAsync();
 }

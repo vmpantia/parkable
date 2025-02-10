@@ -5,9 +5,7 @@
 @using Parkable.Web.Providers.Interfaces
 @using Parkable.Web.Services.Interfaces
 @layout EmptyLayout
-@inject IAuthenticationService AuthService
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
+@inject IAuthenticationService AuthenticationService
 
 <EditForm Model="login" FormName="Login" OnValidSubmit="HandleLoginAsync">
     <DataAnnotationsValidator />
@@ -26,26 +24,5 @@
 @code {
     private LoginDto login = new LoginDto();
 
-    private async Task HandleLoginAsync()
-    {
-        try
-        {
-            // Send login request to API
-            var token = await AuthService.LoginAsync(login);
-
-            // Check if the token is NOT NULL or Empty
-            if (!string.IsNullOrEmpty(token))
-            {
-                // Mark user as authenticate using the custom authentication state provider
-                await ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(token);
-
-                // Redirect user to main page
-                Navigation.NavigateTo("/");
-            }
-        }
-        catch(Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-    }
+    private async Task HandleLoginAsync() => await AuthenticationService.LoginAsync(login);
 }
