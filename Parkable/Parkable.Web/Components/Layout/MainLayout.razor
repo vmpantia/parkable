@@ -1,5 +1,4 @@
-﻿@using Parkable.Web.Components.Common
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
 
@@ -30,9 +29,9 @@
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer Class="mt-6">
+        <div class="pa-8">
             @Body
-        </MudContainer>
+        </div>
     </MudMainContent>
 </MudLayout>
 

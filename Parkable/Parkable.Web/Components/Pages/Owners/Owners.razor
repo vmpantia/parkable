@@ -1,19 +1,41 @@
 ﻿@page "/owners"
+@using Parkable.Shared.Enums
 @using Parkable.Shared.Models
 @using Parkable.Web.Services.Interfaces
 @inject IOwnerService CarService
-@inject ISnackbar Snackbar
+
+<TitleContainer Title="Owners" 
+                Description="List of owners stored on the system." />
 
 <MudDataGrid Items="_owners"
+                Filterable="true"
+                FilterMode="DataGridFilterMode.Simple"
+                FilterCaseSensitivity="DataGridFilterCaseSensitivity.Ignore"
                 Loading="_isLoading">
     <Columns>
         <PropertyColumn Property="o => o.Name" Title="Name" />
         <PropertyColumn Property="o => o.EmailAddress" Title="Email Address" />
         <PropertyColumn Property="o => o.PhoneNumber" Title="Phone Number" />
         <PropertyColumn Property="o => o.Address" Title="Address" />
-        <PropertyColumn Property="o => o.Status" Title="Status" />
+        <TemplateColumn Title="Status">
+            <CellTemplate>
+                <MudChip T="string" Variant="Variant.Text" Color="@(context.Item.Status switch 
+                    {
+                        Status.Enabled => Color.Success,
+                        Status.Disabled => Color.Default,
+                        Status.Deleted => Color.Error
+                    })">
+                    @context.Item.Status.ToString()
+                </MudChip>
+            </CellTemplate>
+        </TemplateColumn>
         <PropertyColumn Property="o => o.LastUpdateAt" Title="Last Update At" />
         <PropertyColumn Property="o => o.LastUpdateBy" Title="Last Update By" />
+        <TemplateColumn StickyRight="true">
+            <CellTemplate>
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+            </CellTemplate>
+        </TemplateColumn>
     </Columns>
 </MudDataGrid>
 
@@ -23,19 +45,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            _isLoading = true;
+        _isLoading = true;
 
-            _owners = await CarService.GetOwnersAsync();
-        }
-        catch(Exception ex)
-        {
-            Snackbar.Add(ex.Message, Severity.Error);
-        }
-        finally
-        {
-            _isLoading = false;
-        }
+        _owners = await CarService.GetOwnersAsync();
+
+        _isLoading = false;
     }
 }
