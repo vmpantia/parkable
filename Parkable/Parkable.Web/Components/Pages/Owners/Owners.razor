@@ -2,9 +2,10 @@
 @using Parkable.Shared.Enums
 @using Parkable.Shared.Models
 @using Parkable.Web.Services.Interfaces
-@inject IOwnerService CarService
+@inject IOwnerService OwnerService
 
-<TitleContainer Title="Owners" 
+<TitleContainer Icon="@Icons.Material.Filled.People"
+                Title="Owners" 
                 Description="List of owners stored on the system." />
 
 <MudDataGrid Items="_owners"
@@ -33,7 +34,7 @@
         <PropertyColumn Property="o => o.LastUpdateBy" Title="Last Update By" />
         <TemplateColumn StickyRight="true">
             <CellTemplate>
-                <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+                <MudIconButton Href="@($"owners/{context.Item.Id}")" Icon="@Icons.Material.Filled.OpenInBrowser" />
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -47,7 +48,7 @@
     {
         _isLoading = true;
 
-        _owners = await CarService.GetOwnersAsync();
+        _owners = await OwnerService.GetOwnersAsync();
 
         _isLoading = false;
     }

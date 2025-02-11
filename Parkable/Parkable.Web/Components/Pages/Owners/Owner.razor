@@ -1,0 +1,46 @@
+﻿@page "/owners/{OwnerId}"
+@using Parkable.Shared.Models
+@using Parkable.Web.Services.Interfaces
+@inject IOwnerService OwnerService
+
+<TitleContainer Icon="@Icons.Material.Filled.Person" 
+                Title="Owner"
+                Description="This will show the full details of the owner including their cars." />
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Typo="Typo.button">Owner Details</MudText>
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.FirstName" Label="First Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.MiddleName" Label="Middle Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.LastName" Label="Last Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.EmailAddress" Label="Email Address" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.PhoneNumber" Label="Phone Number" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudTextField @bind-Value="@_owner.LandlineNumber" Label="Landline Number" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+    <MudItem xs="12">
+        <MudTextField @bind-Value="@_owner.Address" Label="Address" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter]
+    public string OwnerId { get; set; }
+
+    private OwnerDto _owner = new OwnerDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _owner = await OwnerService.GetOwnerByIdAsync(Guid.Parse(OwnerId));
+    }
+}
