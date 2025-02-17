@@ -1,0 +1,21 @@
+﻿
+@if(IsLoading)
+{
+    <MudSkeleton Width="80%" />
+    <MudSkeleton Width="100%" Height="30px" />
+}
+else
+{
+    <MudText Typo="Typo.body2" Style="font-weight:bold;">
+        @Title
+        <MudText Typo="Typo.body1" Class="mt-1">
+            @(string.IsNullOrEmpty(Value) ? "-" : Value)
+        </MudText>
+    </MudText>
+}
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Value { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
+}

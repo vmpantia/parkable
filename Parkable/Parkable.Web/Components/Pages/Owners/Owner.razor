@@ -3,6 +3,7 @@
 @using Parkable.Shared.Models.Owners
 @using Parkable.Web.Services.Interfaces
 @inject IOwnerService OwnerService
+@inject ISnackbar Snackbar
 
 <TitleContainer Icon="@Icons.Material.Filled.Person" 
                 Title="Owner"
@@ -12,25 +13,25 @@
         <MudText Typo="Typo.button">Owner Details</MudText>
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.FirstName" Label="First Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="First Name" Value="@_owner.FirstName" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.MiddleName" Label="Middle Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Middle Name" Value="@_owner.MiddleName" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.LastName" Label="Last Name" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Last Name" Value="@_owner.LastName" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.EmailAddress" Label="Email Address" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Email Address" Value="@_owner.EmailAddress" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.PhoneNumber" Label="Phone Number" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Phone Number" Value="@_owner.PhoneNumber" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="4">
-        <MudTextField @bind-Value="@_owner.LandlineNumber" Label="Landline Number" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Landline Number" Value="@_owner.LandlineNumber" IsLoading="_isLoading" />
     </MudItem>
     <MudItem xs="12">
-        <MudTextField @bind-Value="@_owner.Address" Label="Address" Variant="Variant.Outlined" ReadOnly="true" ShrinkLabel="true" />
+        <Text Title="Address" Value="@_owner.Address" IsLoading="_isLoading" />
     </MudItem>
 </MudGrid>
 
@@ -39,9 +40,23 @@
     public string OwnerId { get; set; }
 
     private OwnerDto _owner = new OwnerDto();
+    private bool _isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        _owner = await OwnerService.GetOwnerByIdAsync(Guid.Parse(OwnerId));
+        try
+        {
+            _isLoading = true;
+
+            _owner = await OwnerService.GetOwnerByIdAsync(Guid.Parse(OwnerId));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 }

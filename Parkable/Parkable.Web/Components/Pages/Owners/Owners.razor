@@ -1,8 +1,10 @@
 ﻿@page "/owners"
 @using Parkable.Shared.Enums
 @using Parkable.Shared.Models
+@using Parkable.Shared.Models.Owners
 @using Parkable.Web.Services.Interfaces
 @inject IOwnerService OwnerService
+@inject ISnackbar Snackbar
 
 <TitleContainer Icon="@Icons.Material.Filled.People"
                 Title="Owners" 
@@ -46,10 +48,19 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _isLoading = true;
+        try
+        {
+            _isLoading = true;
 
-        _owners = await OwnerService.GetOwnersAsync();
-
-        _isLoading = false;
+            _owners = await OwnerService.GetOwnersAsync();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 }

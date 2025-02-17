@@ -13,16 +13,10 @@ namespace Parkable.Web.Services
             _httpClientProvider = httpClientProvider;
         }
 
-        public async Task<IEnumerable<OwnerDto>> GetOwnersAsync()
-        {
-            var owners = await _httpClientProvider.GetAsync<IEnumerable<OwnerDto>>("https://localhost:7103/api/Owners");
-            return owners;
-        }
+        public async Task<IEnumerable<OwnerDto>> GetOwnersAsync() =>
+            await _httpClientProvider.GetAsync<IEnumerable<OwnerDto>>("https://localhost:7103/api/Owners");
 
-        public async Task<OwnerDto> GetOwnerByIdAsync(Guid id)
-        {
-            var owner = await _httpClientProvider.GetAsync<OwnerDto>($"https://localhost:7103/api/Owners/{id}");
-            return owner;
-        }
+        public async Task<OwnerDto> GetOwnerByIdAsync(Guid id) =>
+            await _httpClientProvider.GetAsync<OwnerDto>($"https://localhost:7103/api/Owners/{id}");
     }
 }
