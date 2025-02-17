@@ -1,4 +1,4 @@
-﻿using Parkable.Shared.Models;
+﻿using Parkable.Shared.Models.Owners;
 
 namespace Parkable.Web.Services.Interfaces
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Parkable.Shared.Models;
+using Parkable.Shared.Models.Owners;
 using Parkable.Shared.Results;
 using Parkable.Shared.Results.Errors;
 namespace Parkable.Core.Owners.Queries

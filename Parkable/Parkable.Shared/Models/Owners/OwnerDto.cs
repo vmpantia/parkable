@@ -1,6 +1,7 @@
 ﻿using Parkable.Shared.Enums;
+using Parkable.Shared.Models.Cars;
 
-namespace Parkable.Shared.Models
+namespace Parkable.Shared.Models.Owners
 {
     public class OwnerDto
     {

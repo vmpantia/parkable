@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Parkable.Infra.Databases.Contracts.Repositories;
-using Parkable.Shared.Models;
+using Parkable.Shared.Models.Owners;
 using Parkable.Shared.Results;
 using Parkable.Shared.Results.Errors;
 

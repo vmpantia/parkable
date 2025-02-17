@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Parkable.Infra.Databases.Entities;
-using Parkable.Shared.Models;
+using Parkable.Shared.Models.Owners;
 
 namespace Parkable.Core.Owners
 {
