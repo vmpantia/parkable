@@ -14,6 +14,7 @@ namespace Parkable.Core.Owners
                 .ForMember(dst => dst.LastUpdateBy, opt => opt.MapFrom(src => src.ModifiedBy ?? src.CreatedBy));
 
             CreateMap<CreateOwnerCommand, Owner>();
+            CreateMap<UpdateOwnerCommand, Owner>();
         }
     }
 }

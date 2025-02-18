@@ -22,5 +22,8 @@ namespace Parkable.Api.Controllers
 
         [HttpPost, Authorize(Roles = nameof(UserType.Admin))]
         public async Task<IActionResult> SaveOwnerAsync(SaveOwnerDto request) => await SendRequestAsync(new CreateOwnerCommand(request));
+
+        [HttpPut("{id}"), Authorize(Roles = nameof(UserType.Admin))]
+        public async Task<IActionResult> SaveOwnerAsync(Guid id, SaveOwnerDto request) => await SendRequestAsync(new UpdateOwnerCommand(id, request));
     }
 }

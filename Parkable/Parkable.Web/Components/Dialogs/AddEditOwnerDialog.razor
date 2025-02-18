@@ -3,10 +3,11 @@
 @using Parkable.Web.Services.Interfaces
 @inject IOwnerService OwnerService
 @inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
 
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="_form" Model="_ownerModel">
+        <MudForm @ref="_form" Model="_ownerModel" Disabled="_isLoading">
             <MudGrid>
                 <MudItem xs="12">
                     <MudText Typo="Typo.button">Owner Details</MudText>
@@ -17,7 +18,7 @@
                                   ShrinkLabel="true"
                                   Immediate="true"
                                   For="@(() => _ownerModel.FirstName)"
-                                  @bind-Value="@_ownerModel.FirstName" />
+                                  @bind-Value="@_ownerModel.FirstName"/>
                 </MudItem>
                 <MudItem xs="4">
                     <MudTextField Label="Middle Name"
@@ -80,6 +81,7 @@
     public OwnerDto? Owner { get; set; }
     private bool IsAdd => Owner is null;
 
+    private bool _isLoading = false;
     private MudForm _form = new MudForm();
     private SaveOwnerDto _ownerModel = new SaveOwnerDto();
 
@@ -100,6 +102,28 @@
 
     private async Task SubmitAsync()
     {
-        await OwnerService.SaveOwnerAsync(_ownerModel);
+        try
+        {
+            _isLoading  = true;
+
+            // Send api request for saving owner details on the database
+            var result = IsAdd ? await OwnerService.SaveOwnerAsync(_ownerModel) :
+                                 await OwnerService.SaveOwnerAsync(Owner!.Id, _ownerModel);
+
+            Snackbar.Add(result, Severity.Success);
+
+            // Delay for 2 seconds before refreshing the page
+            await Task.Delay(2000);
+
+            NavigationManager.Refresh();
+        }
+        catch(Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            _isLoading = false;
+        }
     }
 }

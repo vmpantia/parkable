@@ -1,6 +1,4 @@
-﻿using Parkable.Shared.Models.Cars;
-
-namespace Parkable.Shared.Models.Owners
+﻿namespace Parkable.Shared.Models.Owners
 {
     public class SaveOwnerDto
     {

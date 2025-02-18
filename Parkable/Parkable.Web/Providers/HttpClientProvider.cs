@@ -33,6 +33,9 @@ namespace Parkable.Web.Providers
         public async Task<TData> PostAsync<TData>(string uri, object data) where TData : class =>
             await SendRequestAsync<TData>(HttpMethod.Post, uri, data);
 
+        public async Task<TData> PutAsync<TData>(string uri, object data) where TData : class =>
+            await SendRequestAsync<TData>(HttpMethod.Put, uri, data);
+
         private async Task SetAuthorizeHeaderAsync()
         {
             // Get auth token if any

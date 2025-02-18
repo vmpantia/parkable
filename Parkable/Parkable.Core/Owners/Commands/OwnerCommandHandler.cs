@@ -7,7 +7,9 @@ using Parkable.Shared.Results.Errors;
 
 namespace Parkable.Core.Owners.Commands
 {
-    public class OwnerCommandHandler : IRequestHandler<CreateOwnerCommand, Result<string, Error>>
+    public class OwnerCommandHandler : 
+        IRequestHandler<CreateOwnerCommand, Result<string, Error>>,
+        IRequestHandler<UpdateOwnerCommand, Result<string, Error>>
     {
         private readonly IOwnerRepository _ownerRepository;
         private readonly IMapper _mapper;
@@ -24,7 +26,16 @@ namespace Parkable.Core.Owners.Commands
 
             await _ownerRepository.CreateAsync(entity, cancellationToken);
 
-            return "Owner saved successfully.";
+            return "Owner created successfully.";
+        }
+
+        public async Task<Result<string, Error>> Handle(UpdateOwnerCommand request, CancellationToken cancellationToken)
+        {
+            var entity = _mapper.Map<Owner>(request);
+
+            await _ownerRepository.UpdateAsync(entity, cancellationToken);
+
+            return "Owner updated successfully.";
         }
     }
 }
