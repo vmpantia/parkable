@@ -11,6 +11,5 @@ namespace Parkable.Shared.Models.Owners
         public string PhoneNumber { get; set; }
         public string? LandlineNumber { get; set; }
         public string Address { get; set; }
-        public IEnumerable<SaveCarDto> Cars { get; set; }
     }
 }

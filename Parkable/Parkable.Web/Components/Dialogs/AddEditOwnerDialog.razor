@@ -94,16 +94,7 @@
                                             EmailAddress = Owner.EmailAddress,
                                             PhoneNumber = Owner.PhoneNumber,
                                             LandlineNumber = Owner.LandlineNumber,
-                                            Address = Owner.Address,
-                                            Cars = Owner.Cars.Select(car => new SaveCarDto
-                                            {
-                                                OwnerId = null,
-                                                PlateNumber = car.PlateNumber,
-                                                Make = car.Make,
-                                                Series = car.Series,
-                                                BodyType = car.BodyType,
-                                                YearModel = car.YearModel
-                                            }),
+                                            Address = Owner.Address
                                         };
     }
 
