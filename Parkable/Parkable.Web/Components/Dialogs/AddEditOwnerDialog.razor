@@ -1,12 +1,12 @@
 ﻿@using Parkable.Shared.Models.Cars
 @using Parkable.Shared.Models.Owners
-@using Parkable.Shared.Validators
-@inject SaveOwnerDtoValidator Validator
+@using Parkable.Web.Services.Interfaces
+@inject IOwnerService OwnerService
 @inject ISnackbar Snackbar
 
 <MudDialog>
     <DialogContent>
-        <MudForm @ref="_form" Model="_ownerModel" Validation="@Validator.ValidateValue" ValidationDelay="0">
+        <MudForm @ref="_form" Model="_ownerModel">
             <MudGrid>
                 <MudItem xs="12">
                     <MudText Typo="Typo.button">Owner Details</MudText>
@@ -78,7 +78,6 @@
 @code {
     [Parameter]
     public OwnerDto? Owner { get; set; }
-
     private bool IsAdd => Owner is null;
 
     private MudForm _form = new MudForm();
@@ -110,11 +109,6 @@
 
     private async Task SubmitAsync()
     {
-        await _form.Validate();
-
-        if (_form.IsValid)
-        {
-            Snackbar.Add("Submitted!");
-        }
+        await OwnerService.SaveOwnerAsync(_ownerModel);
     }
 }

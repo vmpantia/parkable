@@ -6,5 +6,6 @@ namespace Parkable.Web.Services.Interfaces
     {
         Task<IEnumerable<OwnerDto>> GetOwnersAsync();
         Task<OwnerDto> GetOwnerByIdAsync(Guid id);
+        Task<string> SaveOwnerAsync(SaveOwnerDto dto);
     }
 }

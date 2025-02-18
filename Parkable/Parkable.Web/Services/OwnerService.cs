@@ -18,5 +18,8 @@ namespace Parkable.Web.Services
 
         public async Task<OwnerDto> GetOwnerByIdAsync(Guid id) =>
             await _httpClientProvider.GetAsync<OwnerDto>($"https://localhost:7103/api/Owners/{id}");
+
+        public async Task<string> SaveOwnerAsync(SaveOwnerDto dto) =>
+            await _httpClientProvider.PostAsync<string>($"https://localhost:7103/api/Owners", dto);
     }
 }
