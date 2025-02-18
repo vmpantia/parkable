@@ -2,11 +2,11 @@
 {
     public class SaveCarDto
     {
-        public required Guid OwnerId { get; set; }
-        public required string PlateNumber { get; set; }
-        public required string Make { get; set; }
-        public required string Series { get; set; }
-        public required string BodyType { get; set; }
-        public required int YearModel { get; set; }
+        public Guid? OwnerId { get; set; }
+        public string PlateNumber { get; set; }
+        public string Make { get; set; }
+        public string Series { get; set; }
+        public string BodyType { get; set; }
+        public int YearModel { get; set; }
     }
 }

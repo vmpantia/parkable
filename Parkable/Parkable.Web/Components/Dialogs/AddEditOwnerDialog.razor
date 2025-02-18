@@ -1,0 +1,120 @@
+﻿@using Parkable.Shared.Models.Cars
+@using Parkable.Shared.Models.Owners
+@using Parkable.Shared.Validators
+@inject SaveOwnerDtoValidator Validator
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_form" Model="_ownerModel" Validation="@Validator.ValidateValue" ValidationDelay="0">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudText Typo="Typo.button">Owner Details</MudText>
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="First Name"
+                                  Variant="Variant.Outlined" 
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.FirstName)"
+                                  @bind-Value="@_ownerModel.FirstName" />
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="Middle Name"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.MiddleName)"
+                                  @bind-Value="@_ownerModel.MiddleName" />
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="Last Name"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.LastName)"
+                                  @bind-Value="@_ownerModel.LastName" />
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="Email Address"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.EmailAddress)"
+                                  @bind-Value="@_ownerModel.EmailAddress" />
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="Phone Number"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.PhoneNumber)"
+                                  @bind-Value="@_ownerModel.PhoneNumber" />
+                </MudItem>
+                <MudItem xs="4">
+                    <MudTextField Label="Landline Number"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.LandlineNumber)"
+                                  @bind-Value="@_ownerModel.LandlineNumber" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Label="Address"
+                                  Variant="Variant.Outlined"
+                                  ShrinkLabel="true"
+                                  Immediate="true"
+                                  For="@(() => _ownerModel.Address)"
+                                  @bind-Value="@_ownerModel.Address" />
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="SubmitAsync">Submit</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter]
+    public OwnerDto? Owner { get; set; }
+
+    private bool IsAdd => Owner is null;
+
+    private MudForm _form = new MudForm();
+    private SaveOwnerDto _ownerModel = new SaveOwnerDto();
+
+    protected override void OnInitialized()
+    {
+        _ownerModel = Owner is null ? new SaveOwnerDto()
+                                    : new SaveOwnerDto
+                                        {
+                                            FirstName = Owner.FirstName,
+                                            MiddleName = Owner.MiddleName,
+                                            LastName = Owner.LastName,
+                                            EmailAddress = Owner.EmailAddress,
+                                            PhoneNumber = Owner.PhoneNumber,
+                                            LandlineNumber = Owner.LandlineNumber,
+                                            Address = Owner.Address,
+                                            Cars = Owner.Cars.Select(car => new SaveCarDto
+                                            {
+                                                OwnerId = null,
+                                                PlateNumber = car.PlateNumber,
+                                                Make = car.Make,
+                                                Series = car.Series,
+                                                BodyType = car.BodyType,
+                                                YearModel = car.YearModel
+                                            }),
+                                        };
+    }
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            Snackbar.Add("Submitted!");
+        }
+    }
+}

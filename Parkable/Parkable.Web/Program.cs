@@ -15,6 +15,7 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddProviders();
 builder.Services.AddServices();
 builder.Services.AddMudServices();
+builder.Services.AddValidators();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

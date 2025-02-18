@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Parkable.Core.Extensions
+namespace Parkable.Shared.Validators
 {
     public static class FluentValidationExtension
     {

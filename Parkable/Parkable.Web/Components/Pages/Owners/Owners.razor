@@ -2,19 +2,18 @@
 @using Parkable.Shared.Enums
 @using Parkable.Shared.Models
 @using Parkable.Shared.Models.Owners
+@using Parkable.Web.Components.Dialogs
 @using Parkable.Web.Services.Interfaces
 @inject IOwnerService OwnerService
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 
 <TitleContainer Icon="@Icons.Material.Filled.People"
                 Title="Owners" 
                 Description="List of owners stored on the system." />
 
-<MudDataGrid Items="_owners"
-                Filterable="true"
-                FilterMode="DataGridFilterMode.Simple"
-                FilterCaseSensitivity="DataGridFilterCaseSensitivity.Ignore"
-                Loading="_isLoading">
+<MudDataGrid Items="_owners" 
+             Loading="_isLoading">
     <Columns>
         <PropertyColumn Property="o => o.Name" Title="Name" />
         <PropertyColumn Property="o => o.EmailAddress" Title="Email Address" />
@@ -36,10 +35,18 @@
         <PropertyColumn Property="o => o.LastUpdateBy" Title="Last Update By" />
         <TemplateColumn StickyRight="true">
             <CellTemplate>
-                <MudIconButton Href="@($"owners/{context.Item.Id}")" Icon="@Icons.Material.Filled.OpenInBrowser" />
+                <MudMenu Icon="@Icons.Material.Filled.MoreVert"
+                         AriaLabel="Open user menu">
+                    <MudMenuItem Label="View" Href="@($"owners/{context.Item.Id}")" Target="_blank" />
+                    <MudMenuItem Label="Edit" OnClick="() => OpenAddEditOwnerDialogAsync(context.Item)" />
+                    <MudMenuItem Label="@(context.Item.Status == Status.Enabled ? "Disable" : "Enable")" />
+                </MudMenu>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
+    <PagerContent>
+        <MudDataGridPager T="OwnerDto" />
+    </PagerContent>
 </MudDataGrid>
 
 @code {
@@ -63,4 +70,11 @@
             _isLoading = false;
         }
     }
+
+    private async Task OpenAddEditOwnerDialogAsync(OwnerDto? owner = null)
+    {
+        var parameters = new DialogParameters<AddEditOwnerDialog> { { x => x.Owner, owner } };
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
+        await DialogService.ShowAsync<AddEditOwnerDialog>(owner is null ? "New Owner" : "Edit Owner", parameters, options);
+    } 
 }

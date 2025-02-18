@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Parkable.Core.Extensions;
 using Parkable.Shared.Enums;
 using Parkable.Shared.Results;
 using Parkable.Shared.Results.Errors;
+using Parkable.Shared.Validators;
 
 namespace Parkable.Api.Controllers
 {

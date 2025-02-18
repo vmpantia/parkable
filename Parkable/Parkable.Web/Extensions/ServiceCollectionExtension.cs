@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Components.Authorization;
+using Parkable.Shared.Models.Owners;
+using Parkable.Shared.Validators;
 using Parkable.Web.Providers;
 using Parkable.Web.Providers.Interfaces;
 using Parkable.Web.Services;
@@ -18,6 +21,11 @@ namespace Parkable.Web.Extensions
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IOwnerService, OwnerService>();
+        }
+
+        public static void AddValidators(this IServiceCollection services)
+        {
+            services.AddSingleton<SaveOwnerDtoValidator>();
         }
     }
 }
